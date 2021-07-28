@@ -32,7 +32,7 @@ import {
   showDocAndHidePicker,
 } from "./utils";
 
-const PAGINATE_LIMIT = 50;
+const PAGINATE_LIMIT = 3;
 type OnDidAcceptReturn = Promise<
   | {
       uris: Uri[];

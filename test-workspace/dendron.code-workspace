@@ -1,6 +1,10 @@
 {
     "folders": [
         {
+            "path": "vault3",
+            "name": "vaultThree"
+        },
+        {
             "path": "vault2",
             "visibility": "private"
         },
