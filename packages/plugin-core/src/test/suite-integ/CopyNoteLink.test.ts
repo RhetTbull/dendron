@@ -7,7 +7,6 @@ import path from "path";
 import * as vscode from "vscode";
 import { CopyNoteLinkCommand } from "../../commands/CopyNoteLink";
 import { VSCodeUtils } from "../../utils";
-import { TIMEOUT } from "../testUtils";
 import {
   expect,
   LocationTestUtils,
