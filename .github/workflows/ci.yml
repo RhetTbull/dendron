@@ -9,6 +9,7 @@ on:
       - dev-kevin
       - dev
       - feat/*
+      - fix/*
   pull_request:
     branches:
       - master
@@ -22,14 +23,14 @@ jobs:
 
       matrix:
         os:
-          - macos-latest
-          - ubuntu-latest
+          # - macos-latest
+          # - ubuntu-latest
           - windows-latest
         node-version:
           - 12.x
           - 14.x
         suite:
-          - cli
+          # - cli
           - plugin
 
         include:

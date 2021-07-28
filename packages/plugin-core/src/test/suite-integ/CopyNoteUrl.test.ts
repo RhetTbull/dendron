@@ -157,7 +157,7 @@ suite("CopyNoteUrl", function () {
           const link = await new CopyNoteURLCommand().run();
           expect("https://foo.com").toEqual(link);
         } finally {
-          stub.restore();
+          //stub.restore();
           done();
         }
       },

@@ -18,7 +18,6 @@ import { setupBeforeAfter } from "../testUtilsV3";
 
 suite("CopyNoteLink", function () {
   const ctx = setupBeforeAfter(this, {});
-  this.timeout(TIMEOUT);
 
   describe("single", () => {
     test("basic", (done) => {
