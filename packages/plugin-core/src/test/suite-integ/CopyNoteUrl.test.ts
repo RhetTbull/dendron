@@ -139,7 +139,7 @@ suite("CopyNoteUrl", function () {
         engine.config = getWS().config;
         engine.vaults = engine.config.vaults;
         // TODO: ugly temporary hack. can be removed when [[Unify Runenginetest and Runworkspacetest|scratch.2021.06.17.164102.unify-runenginetest-and-runworkspacetest]] is implemented
-        const stub = sinon.stub(VSCodeUtils, "getNoteFromDocument").returns(
+        sinon.stub(VSCodeUtils, "getNoteFromDocument").returns(
           await NoteTestUtilsV4.createNote({
             fname: "foo",
             vault: vaults[0],
