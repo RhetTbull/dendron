@@ -1006,3 +1006,10 @@ export const CONFIG: { [key: string]: ConfigEntry } = {
       "port for server. If not set, will be randomly generated at startup.",
   },
 };
+
+export const gdocScope = [
+  "https://www.googleapis.com/auth/documents",
+  "https://www.googleapis.com/auth/drive",
+];
+
+export const Oauth2Pods = ["dendron.gdoc"];
