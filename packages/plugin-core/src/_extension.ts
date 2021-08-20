@@ -80,7 +80,7 @@ async function reloadWorkspace() {
   Logger.info({ ctx, msg: "post-ws.reloadWorkspace" });
 
   // Run any initialization code necessary for this workspace invocation.
-  const initializer = WorkspaceInitFactory.create(ws);
+  const initializer = WorkspaceInitFactory.create();
 
   if (initializer?.onWorkspaceOpen) {
     initializer.onWorkspaceOpen({ ws });
@@ -433,10 +433,8 @@ export async function _activate(
     const vimInstalled = VSCodeUtils.isExtensionInstalled("vscodevim.vim");
     if (vimInstalled) {
       AnalyticsUtils.track(ExtensionEvents.VimExtensionInstalled);
-      const {
-        keybindingConfigPath, 
-        newKeybindings: resolvedKeybindings, 
-      } = checkAndApplyVimKeybindingOverrideIfExists();
+      const { keybindingConfigPath, newKeybindings: resolvedKeybindings } =
+        checkAndApplyVimKeybindingOverrideIfExists();
       if (!_.isUndefined(resolvedKeybindings)) {
         if (!fs.existsSync(keybindingConfigPath)) {
           fs.ensureFileSync(keybindingConfigPath);
@@ -613,8 +611,8 @@ export function shouldDisplayLapsedUserMsg(): boolean {
 }
 
 export function checkAndApplyVimKeybindingOverrideIfExists(): {
-  keybindingConfigPath: string,
-  newKeybindings?: any
+  keybindingConfigPath: string;
+  newKeybindings?: any;
 } {
   // check where the keyboard shortcut is configured
   const { userConfigDir, osName } = VSCodeUtils.getCodeUserConfigDir();
@@ -629,14 +627,15 @@ export function checkAndApplyVimKeybindingOverrideIfExists(): {
   const keybindings = readJSONWithCommentsSync(keybindingConfigPath);
 
   // check if override is already there
-  const alreadyHasOverride = keybindings.filter((entry: any) => {
-    if (!_.isUndefined(entry.command)) {
-      return entry.command === "-expandLineSelection"
-    } else {
-      return false;
-    }
-  }).length > 0;
-  
+  const alreadyHasOverride =
+    keybindings.filter((entry: any) => {
+      if (!_.isUndefined(entry.command)) {
+        return entry.command === "-expandLineSelection";
+      } else {
+        return false;
+      }
+    }).length > 0;
+
   if (alreadyHasOverride) {
     return { keybindingConfigPath };
   }
@@ -644,12 +643,12 @@ export function checkAndApplyVimKeybindingOverrideIfExists(): {
   // add override if there isn't.
   const metaKey = osName === "Darwin" ? "cmd" : "ctrl";
   const OVERRIDE_EXPAND_LINE_SELECTION = {
-    "key": `${metaKey}+l`,
-    "command": "-expandLineSelection",
-    "when": "textInputFocus"
+    key: `${metaKey}+l`,
+    command: "-expandLineSelection",
+    when: "textInputFocus",
   };
 
   const newKeybindings = keybindings.concat(OVERRIDE_EXPAND_LINE_SELECTION);
-  
+
   return { keybindingConfigPath, newKeybindings };
 }
